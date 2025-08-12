@@ -4,18 +4,18 @@ from django.utils._os import safe_join
 from django.http import HttpResponse
 from . import util
 
-entries =util.list_entries()
-search_entries = [low.lower() for low in entries]
+entries =util.list_entries() 
+search_entries = [low.lower() for low in util.list_entries()]
 
 def index(request):
     if request.method == "GET" and request.GET.get("q") != None and request.GET.get("q") != '':
         search = request.GET.get("q")
-        if search in entries:
+        if search.lower() in search_entries:
             return redirect('page', page=search)
         else:
             matched_entries = []
-            for entry in search_entries:
-                if search.lower() in entry:
+            for entry in entries:
+                if search.lower() in entry.lower():
                     matched_entries.append(entry)
             return render(request, "encyclopedia/search.html", {
             "entries": matched_entries,
