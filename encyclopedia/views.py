@@ -3,8 +3,9 @@ from django.conf import settings
 from django.utils._os import safe_join
 from django.http import HttpResponse
 from . import util
+import random
 
-entries =util.list_entries() 
+entries = util.list_entries() 
 search_entries = [low.lower() for low in util.list_entries()]
 
 def index(request):
@@ -31,7 +32,14 @@ def page(request, page):
         finalPage = util.get_entry(page)
         return HttpResponse(finalPage)
     else:
-        notfound = util.get_entry("NotFound")
-        return HttpResponse(notfound)
+        return render(request, "encyclopedia/notfound.html")
 
+def newPage(request):
+    return render(request, "encyclopedia/newpage.html")
 
+def randomPage(request):
+    max = len(entries)
+    random_int = random.randint(0, max - 1)
+    print(random_int)
+    random_page = entries[random_int]
+    return HttpResponse(util.get_entry(random_page))
