@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from . import util
 
 entries =util.list_entries()
+search_entries = [low.lower() for low in entries]
 
 def index(request):
     if request.method == "GET" and request.GET.get("q") != None and request.GET.get("q") != '':
@@ -12,7 +13,10 @@ def index(request):
         if search in entries:
             return redirect('page', page=search)
         else:
-            matched_entries = [entry for entry in entries if search.lower() in entry.lower()]
+            matched_entries = []
+            for entry in search_entries:
+                if search.lower() in entry:
+                    matched_entries.append(entry)
             return render(request, "encyclopedia/search.html", {
             "entries": matched_entries,
             "search": search
@@ -23,7 +27,7 @@ def index(request):
         })
 
 def page(request, page):
-    if page in entries:
+    if page.lower() in search_entries:
         finalPage = util.get_entry(page)
         return HttpResponse(finalPage)
     else:
