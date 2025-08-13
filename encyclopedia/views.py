@@ -40,18 +40,19 @@ def page(request, page):
     else:
         return render(request, "encyclopedia/notfound.html")
 
-def newPage(request): #adjust this, erros still here, if its already there it delets the original one
+def newPage(request): 
     if request.method == "POST":
         form = PageForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
             content = form.cleaned_data["content"]
-            new = util.save_entry(title,content)
-            if new == True:
+            if title not in entries:
+                new = util.save_entry(title,content)
                 return HttpResponse(util.get_entry(title))           
             else:
                 return render(request, "encyclopedia/newpage.html",{
-                "form": PageForm(request.POST)
+                "form": PageForm(request.POST),
+                "error": "Title already in use"
                 })    
     return render(request, "encyclopedia/newpage.html",{
         "form": PageForm()
@@ -64,5 +65,5 @@ def randomPage(request):
     random_page = entries[random_int]
     return HttpResponse(util.get_entry(random_page))
 
-def editPage(request):
+def editPage(request, page):
     return render(request, "encyclopedia/editpage.html")
