@@ -2,11 +2,17 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.utils._os import safe_join
 from django.http import HttpResponse
+from django import forms
 from . import util
 import random
 
 entries = util.list_entries() 
 search_entries = [low.lower() for low in util.list_entries()]
+
+class PageForm(forms.Form):
+    title =  forms.CharField(label="Title")
+    content = forms.CharField(widget=forms.Textarea)
+
 
 def index(request):
     if request.method == "GET" and request.GET.get("q") != None and request.GET.get("q") != '':
@@ -34,8 +40,22 @@ def page(request, page):
     else:
         return render(request, "encyclopedia/notfound.html")
 
-def newPage(request):
-    return render(request, "encyclopedia/newpage.html")
+def newPage(request): #adjust this, erros still here, if its already there it delets the original one
+    if request.method == "POST":
+        form = PageForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            new = util.save_entry(title,content)
+            if new == True:
+                return HttpResponse(util.get_entry(title))           
+            else:
+                return render(request, "encyclopedia/newpage.html",{
+                "form": PageForm(request.POST)
+                })    
+    return render(request, "encyclopedia/newpage.html",{
+        "form": PageForm()
+    })
 
 def randomPage(request):
     max = len(entries)
@@ -43,3 +63,6 @@ def randomPage(request):
     print(random_int)
     random_page = entries[random_int]
     return HttpResponse(util.get_entry(random_page))
+
+def editPage(request):
+    return render(request, "encyclopedia/editpage.html")
