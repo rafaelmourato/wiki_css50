@@ -31,14 +31,14 @@ The goal of this activity is to recreate an encyclopedia as the wikipedia page, 
 - [x] If an entry with the given title already exists → show an error message.
 - [x] Otherwise, save the entry and redirect to its page.
 #### Edit Page
-- [] Each entry page has an "Edit" link.
-- [] Editing form is pre-filled with the current Markdown content.
-- [] On save, update the entry and redirect to its page.
+- [ ] Each entry page has an "Edit" link.
+- [ ] Editing form is pre-filled with the current Markdown content.
+- [ ] On save, update the entry and redirect to its page.
 #### Random Page
 - [x] Clicking "Random Page" opens a random encyclopedia entry.
 #### Markdown Conversion
-- [] Convert Markdown to HTML before displaying entries.
-- [] May use markdown2 or implement custom parsing (headings, bold, unordered lists, links, paragraphs).
+- [ ] Convert Markdown to HTML before displaying entries.
+- [ ] May use markdown2 or implement custom parsing (headings, bold, unordered lists, links, paragraphs).
 ### Links
 
 - [🔗 Project Specification](https://cs50.harvard.edu/web/projects/1/wiki/)  
