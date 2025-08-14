@@ -36,8 +36,7 @@ def index(request):
 
 def page(request, page):
     if page.lower() in search_entries:
-        finalPage = util.get_entry(page)
-        content = markdown2.markdown(finalPage)
+        content = markdown2.markdown(util.get_entry(page))
         return render(request, "encyclopedia/page.html", {
             "title": page,
             "content": content
@@ -64,19 +63,17 @@ def newPage(request):
     })
 
 def randomPage(request):
-    max = len(entries)
-    random_int = random.randint(0, max - 1)
-    print(random_int)
-    random_page = entries[random_int]
-    return HttpResponse(util.get_entry(random_page))
+    random_page = entries[random.randint(0, len(entries) - 1)]
+    return redirect('page', page=random_page)
 
 def editPage(request,title):
     if request.method == "POST":
         form = PageForm(request.POST)
-        title = form.cleaned_data["title"]
-        content = form.cleaned_data["content"]
-        util.save_entry(title,content)
-        return HttpResponse(util.get_entry(title))
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            util.save_entry(title,content)
+            return redirect('page', page=title)
     else:
         page = util.get_entry(title)
         return render(request, "encyclopedia/editpage.html", {

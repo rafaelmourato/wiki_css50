@@ -6,7 +6,7 @@
 
 {% block body%}
     <h1>Edit Page</h1>
-    <form action="{% url 'editpage' title %}" method="post">
+    <form action="{% url 'editpage' title %}" >
     {% csrf_token %}
         {{ form }}
         <input type="submit" name="save">

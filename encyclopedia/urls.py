@@ -4,10 +4,10 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("<str:page>", views.page, name="page"),
     path("newPage", views.newPage, name="newpage"),
     path("page", views.newPage, name="page"),
     path("editPage/<str:title>/", views.editPage, name="editpage"),
     path("random", views.randomPage, name="randomPage"),
-    path("notFound", views.page, name="notFound")
+    path("notFound", views.page, name="notFound"),
+    path("<str:page>", views.page, name="page")
 ]
