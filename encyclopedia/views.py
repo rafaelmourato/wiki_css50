@@ -35,6 +35,7 @@ def index(request):
         })
 
 def page(request, page):
+    search_entries = [low.lower() for low in util.list_entries()]
     if page.lower() in search_entries:
         content = markdown2.markdown(util.get_entry(page))
         return render(request, "encyclopedia/page.html", {
@@ -52,7 +53,7 @@ def newPage(request):
             content = form.cleaned_data["content"]
             if title not in entries:
                 util.save_entry(title,content)
-                return HttpResponse(util.get_entry(title))           
+                return redirect('page', page=title)
             else:
                 return render(request, "encyclopedia/newpage.html",{
                 "form": PageForm(request.POST),
@@ -75,10 +76,11 @@ def editPage(request,title):
             util.save_entry(title,content)
             return redirect('page', page=title)
     else:
-        page = util.get_entry(title)
+        content = util.get_entry(title)
         return render(request, "encyclopedia/editpage.html", {
+            "head": title,
             "form": PageForm(initial={
-            "title": title,
-            "content": page
-        })
+                "title": title,
+                "content": content
+            })
         })

@@ -5,11 +5,10 @@
 {% endblock %}
 
 {% block body%}
-    <h1>Edit Page</h1>
-    <form action="{% url 'editpage' title %}" >
+    <h1>Edit Page - {{ head }}</h1>
+    <form action="{% url 'editpage' head%}" method="post">
     {% csrf_token %}
         {{ form }}
         <input type="submit" name="save">
     </form>
-
 {% endblock %}

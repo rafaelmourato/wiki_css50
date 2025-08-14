@@ -32,8 +32,8 @@ The goal of this activity is to recreate an encyclopedia as the wikipedia page, 
 - [x] Otherwise, save the entry and redirect to its page.
 #### Edit Page
 - [x] Each entry page has an "Edit" link.
-- [ ] Editing form is pre-filled with the current Markdown content.
-- [ ] On save, update the entry and redirect to its page.
+- [x] Editing form is pre-filled with the current Markdown content.
+- [x] On save, update the entry and redirect to its page.
 #### Random Page
 - [x] Clicking "Random Page" opens a random encyclopedia entry.
 #### Markdown Conversion
