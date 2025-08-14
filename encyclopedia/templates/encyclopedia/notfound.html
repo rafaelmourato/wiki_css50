@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Page Not Found</h1>
-
+    <div><h1>Page Not Found</h1></div>
+    <div><p>The page that you tried to find is not yet in this encyclopedia,would you like to create a new one? </p></div>
+    <div><a href="{% url 'newpage' %}">Create New Page</a></div>
 {% endblock %}

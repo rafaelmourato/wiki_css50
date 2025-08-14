@@ -69,18 +69,14 @@ def randomPage(request):
 
 def editPage(request,title):
     if request.method == "POST":
-        form = PageForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data["title"]
-            content = form.cleaned_data["content"]
-            util.save_entry(title,content)
-            return redirect('page', page=title)
+        content = request.POST.get("content")  # pega só o conteúdo
+        util.save_entry(title, content)
+        return redirect('page', page=title)
     else:
         content = util.get_entry(title)
         return render(request, "encyclopedia/editpage.html", {
             "head": title,
             "form": PageForm(initial={
-                "title": title,
                 "content": content
             })
         })
