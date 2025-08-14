@@ -45,13 +45,14 @@ def page(request, page):
     else:
         return render(request, "encyclopedia/notfound.html")
 
-def newPage(request): 
+def newPage(request):
+    search_entries = [low.lower() for low in util.list_entries()] 
     if request.method == "POST":
         form = PageForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
             content = form.cleaned_data["content"]
-            if title not in entries:
+            if title.lower() not in search_entries:
                 util.save_entry(title,content)
                 return redirect('page', page=title)
             else:

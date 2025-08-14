@@ -1,3 +1,4 @@
+ 
 # CSS
 
-CSS is a developing tool
+Css is a styling language.

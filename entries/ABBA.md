@@ -1,3 +1,3 @@
 # ABBA
 
-Money
+Money is good
