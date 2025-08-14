@@ -48,4 +48,4 @@ The goal of this activity is to recreate an encyclopedia as the wikipedia page, 
 Rafael Mourato (Rafael.mourato@hotmail.com) - Student of Informational Systems at Federal University of Pernambuco.
 
 ### License
-This project is for educational purposes only and is not affiliated with Google Inc.
+This project is for educational purposes only and is not affiliated with Wikipedia.
